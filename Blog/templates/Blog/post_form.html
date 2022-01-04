@@ -1,0 +1,229 @@
+{% extends "Blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"><h3>Add New Alloy</h3></legend>
+            </fieldset>
+            <fieldset class="form-group">
+                    <div class="form-row">
+                    <div class="form-group col-md-3 mb-0">
+                    {{ form.werkstoffnummer|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-3 mb-0">
+                    {{ form.werkstoffbezeichnung|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-3 mb-0">
+                    {{ form.gruppe|as_crispy_field }}
+                    </div>
+                    <div class="form-group col-md-3 mb-0">
+                    {{ form.source|as_crispy_field }}
+                    </div>
+                    </div>
+            </fieldset>
+
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Die Zusammensetzungen</legend>
+                <div class="form-row">
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Iron_Fe|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Carbon_C|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Cobalt_Co|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Nickel_Ni|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Copper_Cu|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Zinc_Zn|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Mananese_Mn|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Chromuium_Cr|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Vanadium_V|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Titaniun_Ti|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Cadmium_Cd|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Silver_Ag|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Palladium_Pb|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Rhodium_Rh|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Molydbenum_Mo|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                {{ form.Niobium_Nb|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                        {{ form.Zirconium_Zr|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Yttrium_Y|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Tungesten_W|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Aluminium_Al|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Boron_B|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Gallium_Ga|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Indium_In|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Lead_Pb|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Silicon_Si|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Tin_Sn|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Nitrogen_N|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Phosphorus_P|as_crispy_field }}
+                        </div>
+                        <div class="form-group col-md-2 mb-0">
+                        {{ form.Sulfur_S|as_crispy_field }}
+                        </div>
+                </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Die Härteprüfung</legend>
+            <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Hardness_HV|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Hardness_HRC|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Hardness_HBW|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.files_Hardness|as_crispy_field }}
+            </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Zugversuch</legend>
+            <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Tensile_Strength_Rm|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Streckgrenze_Rp|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Streckgrenze_ReH|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Streckgrenze_ReL|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ form.Tensile_Stretch_A|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                {{ form.Gleichmaßdehnung_Ag|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                {{ form.files_Tensile|as_crispy_field }}
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Kerbschlagbiegeversuch </legend>
+            <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Kerbschlagarbeit|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Temperatur|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.files_Charpy|as_crispy_field }}
+            </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Elastizitätsmodul</legend>
+            <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+            {{ form.EModul|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.files_Modulus|as_crispy_field }}
+            </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Die Dichtebestimmung</legend>
+            <div class="form-row">
+            <div class="form-group col-md-4 mb-0">
+            {{ form.Density|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+            {{ form.files_Density|as_crispy_field }}
+            </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Metallografie</legend>
+            <div class="form-row">
+            <div class="form-group col-md-3 mb-0">
+            {{ form.Probe|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+            {{ form.Gefüge_Beschreibung|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-3 mb-0">
+                {{ form.Wärmebehandlung|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                {{ form.Ätzung|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-3 mb-0">
+                    {{ form.Gefüge_Aufnhame|as_crispy_field }}
+                    </div>
+            </div>
+        </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Add/Update</button>
+            </div>
+        </form>
+    </div> 
+{% endblock content %}

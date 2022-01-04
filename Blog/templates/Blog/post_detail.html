@@ -1,0 +1,711 @@
+{% extends "Blog/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{% url 'profile' %}">{{ object.author }}</a>
+            <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+            {% if object.author == user %}
+            <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-create' %}">Add Another</a>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            </div>
+
+            {% endif %}
+        </div>
+        <h2 class="article-title">{{ object.werkstoffnummer }}-{{ object.werkstoffbezeichnung }}</h2>
+
+
+            
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+        <table style="width:90%">
+            <tr>
+                <th style="background-color:#00445F">
+                    <font color="white">Werkstoffnummer</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Werkstoffbezeichnung</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Gruppe</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Source</font>
+                </th>
+
+            </tr>
+            <tr>
+                <td>{{ object.werkstoffnummer }}</td>
+                <td>{{ object.werkstoffbezeichnung }}</td>
+                <td>{{ object.gruppe }}</td>
+                <td>{{ object.source }}</td>
+            </tr>
+        </table>
+
+        <!--
+        TODO:
+        - print total number of PDB entries (footnote or next to "Select elements...")
+        - periodic table
+            - better (gradual) coloring of elements
+            - elements D and X
+        - examples:
+            - list of extra element in each example
+            - link titles with the PDB title
+        -->
+
+        <script src="data.js"></script>
+        <style type="text/css">
+       #periodic tr td { background-color: #ffffff; width: 50px; height: 55px;
+                         cursor: pointer; border-style: outset; border-width: 1px; }
+       #periodic tr td.empty { background-color: transparent; cursor: auto;
+                               border: none; text-align: left; }                                
+       #periodic tr.spacer td { height: 15px; }
+       #periodic tr td sup { font-size: 15px; display: block; text-align: center;}
+       #periodic tr td { font-size: 15px; text-align: center; position: relative; }
+      
+        </style>
+        <table style="width:90%">
+
+               <th style="background-color:#00445F">
+                   <font color="white">Die Zusammensetzungen In Das Periodensystem</font>
+               </th>
+        </table>
+
+        <table id="periodic", style="width:90%">
+         <tr id="p1">
+          <td id="H" title="Hydrogen"><sup></sup>H</td>
+          <td class="empty" colspan="16"></td>
+          <td id="He" title="Helium"><sup></sup>He</td>
+         </tr>
+         <tr id="p2">
+          <td id="Li" title="Lithium"><sup></sup>Li</td>
+          <td id="Be" title="Beryllium"><sup></sup>Be</td>
+          <td class="empty" id="desc" colspan="10" rowspan="2"></td>
+          <td style=" {% if object.Boron_B != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="B" title="Boron">B</td>
+          <td style=" {% if object.Carbon_C != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="C" title="Carbon">C</td>
+
+
+
+  
+          <td style=" {% if object.Nitrogen_N != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="N" title="Nitrogen">N</td>
+
+          <td id="O" title="Oxygen"><sup></sup>O</td>
+          <td id="F" title="Fluorine"><sup></sup>F</td>
+          <td id="Ne" title="Neon"><sup></sup>Ne</td>
+         </tr>
+         <tr id="p3">
+          <td id="Na" title="Sodium"><sup></sup>Na</td>
+          <td id="Mg" title="Magnesium"><sup></sup>Mg</td>
+          <td style=" {% if object.Aluminium_Al != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Al" title="Aluminium">Al</td>
+          <td style=" {% if object.Silicon_Si != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Si" title="Silicon">Si</td>
+          <td style=" {% if object.Phosphorus_P != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="P" title="Phosphorus">P</td>
+          <td style=" {% if object.Sulfur_S != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="S" title="Sulfur">S</td>
+          <td id="Cl" title="Chlorine"><sup></sup>Cl</td>
+          <td id="Ar" title="Argon"><sup></sup>Ar</td>
+         </tr>
+         <tr id="p4">
+          <td id="K"  title="Potassium"><sup></sup>K</td>
+          <td id="Ca" title="Calcium"><sup></sup>Ca</td>
+          <td id="Sc" title="Scandium"><sup></sup>Sc</td>
+          <td style=" {% if object.Titaniun_Ti != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Ti" title="Titaniun">Ti</td>
+          <td style=" {% if object.Vanadium_V != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="V" title="Vanadium">V</td>
+          <td style=" {% if object.Chromuium_Cr != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Cr" title="Chromium">Cr</td>
+          <td style=" {% if object.Mananese_Mn != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Mn" title="Manganese">Mn</td>
+          <td style=" {% if object.Iron_Fe != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Fe" title="Iron">Fe</td>
+          <td style=" {% if object.Cobalt_Co != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Co" title="Cobalt">Co</td>
+          <td style=" {% if object.Nickel_Ni != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Ni" title="Nickel">Ni</td>
+          <td style=" {% if object.Copper_Cu != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Cu" title="Copper">Cu</td>
+          <td style=" {% if object.Zinc_Zn != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Zn" title="Zinc">Zn</td>
+          <td style=" {% if object.Gallium_Ga != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Ga" title="Gallium">Ga</td>
+          <td id="Ge" title="Germanium"><sup></sup>Ge</td>
+          <td id="As" title="Arsenic"><sup></sup>As</td>
+          <td id="Se" title="Selenium"><sup></sup>Se</td>
+          <td id="Br" title="Bromine"><sup></sup>Br</td>
+          <td id="Kr" title="Krypton"><sup></sup>Kr</td>
+         </tr>
+         <tr id="p5">
+          <td id="Rb" title="Rubidium"><sup></sup>Rb</td>
+          <td id="Sr" title="Strontium"><sup></sup>Sr</td>
+          <td style=" {% if object.Yttrium_Y != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Y" title="Yttrium">Y</td>
+          <td style=" {% if object.Zirconium_Zr != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Zr" title="Zirconium">Zr</td>
+          <td style=" {% if object.Niobium_Nb != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Nb" title="Niobium">Nb</td>
+          <td style=" {% if object.Molydbenum_Mo != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Mo" title="Molydbenum">Mo</td>
+          <td id="Tc" title="Technetium">Tc</td>
+          <td id="Ru" title="Ruthenium"><sup></sup>Ru</td>
+          <td style=" {% if object.Rhodium_Rh != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Rh" title="Rhodium">Rh</td>
+          <td style=" {% if object.Lead_Pb != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Pd" title="Lead">Pd</td>
+          <td style=" {% if object.Silver_Ag != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Ag" title="Silver">Ag</td>
+          <td style=" {% if object.Cadmium_Cd != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Cd" title="Cadmium">Cd</td>
+          <td style=" {% if object.Indium_In != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="In" title="Indium">In</td>
+          <td style=" {% if object.Tin_Sn != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Sn" title="Tin">Sn</td>
+          <td id="Sb" title="Antimony"><sup></sup>Sb</td>
+          <td id="Te" title="Tellurium"><sup></sup>Te</td>
+          <td id="I"  title="Iodine"><sup></sup>I</td>
+          <td id="Xe" title="Xenon"><sup></sup>Xe</td>
+         </tr>
+         <tr id="p6">
+          <td id="Cs" title="Caesium"><sup></sup>Cs</td>
+          <td id="Ba" title="Barium"><sup></sup>Ba</td>
+          <td class="empty"></td>
+          <td id="Hf" title="Hafnium"><sup></sup>Hf</td>
+          <td id="Ta" title="Tantalum"><sup></sup>Ta</td>
+          <td style=" {% if object.Tungesten_W != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="W" title="Tungesten">W</td>
+          <td id="Re" title="Rhenium"><sup></sup>Re</td>
+          <td id="Os" title="Osmium"><sup></sup>Os</td>
+          <td id="Ir" title="Iridium"><sup></sup>Ir</td>
+          <td id="Pt" title="Platinum"><sup></sup>Pt</td>
+          <td id="Au" title="Gold"><sup></sup>Au</td>
+          <td id="Hg" title="Mercury"><sup></sup>Hg</td>
+          <td id="Tl" title="Thallium"><sup></sup>Tl</td>
+          <td style=" {% if object.Palladium_Pb != '' %} background-color:#00445F; color: #ffffff; {% endif %}" id="Pb" title="Palladium">Pb</td>
+          <td id="Bi" title="Bismuth"><sup></sup>Bi</td>
+          <td id="Po" title="Polonium"><sup></sup>Po</td>
+          <td id="At" title="Astatine"><sup></sup>At</td>
+          <td id="Rn" title="Radon"><sup></sup>Rn</td>
+         </tr>
+         <tr id="p7">
+          <td id="Fr" title="Francium"><sup></sup>Fr</td>
+          <td id="Ra" title="Radium"><sup></sup>Ra</td>
+          <td class="empty"></td>
+          <td id="Rf" title="Rutherfordium"><sup></sup>Rf</td>
+          <td id="Db" title="Dubnium"><sup></sup>Db</td>
+          <td id="Sg" title="Seaborgium"><sup></sup>Sg</td>
+          <td id="Bh" title="Bohrium"><sup></sup>Bh</td>
+          <td id="Hs" title="Hassium"><sup></sup>Hs</td>
+          <td id="Mt" title="Meitnerium"><sup></sup>Mt</td>
+          <td id="Ds" title="Darmstadtium"><sup></sup>Ds</td>
+          <td id="Rg" title="Roentgenium"><sup></sup>Rg</td>
+          <td id="Cn" title="Copernicium"><sup></sup>Cn</td>
+          <td id="Nh" title="Nihonium"><sup></sup>Nh</td>
+          <td id="Fl" title="Flerovium"><sup></sup>Fl</td>
+          <td id="Mc" title="Moscovium"><sup></sup>Mc</td>
+          <td id="Lv" title="Livermorium"><sup></sup>Lv</td>
+          <td id="Ts" title="Tennessine"><sup></sup>Ts</td>
+          <td id="Og" title="Oganesson"><sup></sup>Og</td>
+         </tr>
+         <tr class="spacer"><td class="empty" colspan=18></td></tr>
+         <tr>
+          <td class="empty" colspan="2"></td>
+          <td id="La" title="Lanthanum"><sup></sup>La</td>
+          <td id="Ce" title="Cerium"><sup></sup>Ce</td>
+          <td id="Pr" title="Praseodymium"><sup></sup>Pr</td>
+          <td id="Nd" title="Neodymium"><sup></sup>Nd</td>
+          <td id="Pm" title="Promethium"><sup></sup>Pm</td>
+          <td id="Sm" title="Samarium"><sup></sup>Sm</td>
+          <td id="Eu" title="Europium"><sup></sup>Eu</td>
+          <td id="Gd" title="Gadolinium"><sup></sup>Gd</td>
+          <td id="Tb" title="Terbium"><sup></sup>Tb</td>
+          <td id="Dy" title="Dysprosium"><sup></sup>Dy</td>
+          <td id="Ho" title="Holmium"><sup></sup>Ho</td>
+          <td id="Er" title="Erbium"><sup></sup>Er</td>
+          <td id="Tm" title="Thulium"><sup></sup>Tm</td>
+          <td id="Yb" title="Ytterbium"><sup></sup>Yb</td>
+          <td id="Lu" title="Lutetium"><sup></sup>Lu</td>
+          <td class="empty"></td>
+         </tr>
+         <tr>
+          <td class="empty" colspan="2"></td>
+          <td id="Ac" title="Actinium"><sup></sup>Ac</td>
+          <td id="Th" title="Thorium">Th</td>
+          <td id="Pa" title="Protactinium">Pa</td>
+          <td id="U"  title="Uranium">U</td>
+          <td id="Np" title="Neptunium">Np</td>
+          <td id="Pu" title="Plutonium">Pu</td>
+          <td id="Am" title="Americium">Am</td>
+          <td id="Cm" title="Curium">Cm</td>
+          <td id="Bk" title="Berkelium">Bk</td>
+          <td id="Cf" title="Californium">Cf</td>
+          <td id="Es" title="Einsteinium">Es</td>
+          <td id="Fm" title="Fermium">Fm</td>
+          <td id="Md" title="Mendelevium">Md</td>
+          <td id="No" title="Nobelium">No</td>
+          <td id="Lr" title="Lawrencium">Lr</td>
+          <td class="empty"></td>
+         </tr>
+
+        </table>
+        
+       </html>
+
+        
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+        <table style="width:90%">
+            <tr>
+                <th style="background-color:#00445F">
+                    <font color="white">Die Elementen</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Prozent Anteile [%]</font>
+                </th>
+            </tr>
+
+
+            {% if object.Iron_Fe != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Iron - Fe</td>
+                <td>{{ object.Iron_Fe }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Carbon_C != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Carbon - C</td>
+                <td>{{ object.Carbon_C }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Cobalt_Co != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Cobalt - Co</td>
+                <td>{{ object.Cobalt_Co }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Nickel_Ni != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Nickel - Ni</td>
+                <td>{{ object.Nickel_Ni }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Copper_Cu != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Copper - Cu</td>
+                <td>{{ object.Copper_Cu }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Zinc_Zn != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Zinc - Zn</td>
+                <td>{{ object.Zinc_Zn }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Mananese_Mn != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Mananese - Mn</td>
+                <td>{{ object.Mananese_Mn }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Chromuium_Cr != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Chromuium - Cr</td>
+                <td>{{ object.Chromuium_Cr }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Vanadium_V != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Vanadium - V</td>
+                <td>{{ object.Vanadium_V }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Titaniun_Ti != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Titaniun - Ti</td>
+                <td>{{ object.Titaniun_Ti }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Cadmium_Cd != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Cadmium - Cd</td>
+                <td>{{ object.Cadmium_Cd }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Silver_Ag != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Silver - Ag</td>
+                <td>{{ object.Silver_Ag }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Palladium_Pb != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Palladium - Pb</td>
+                <td>{{ object.Palladium_Pb }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Rhodium_Rh != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Rhodium - Rh</td>
+                <td>{{ object.Rhodium_Rh }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Molydbenum_Mo != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Molydbenum - Mo</td>
+                <td>{{ object.Molydbenum_Mo }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Niobium_Nb != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Niobium - Nb</td>
+                <td>{{ object.Niobium_Nb }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Zirconium_Zr != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Zirconium - Zr</td>
+                <td>{{ object.Zirconium_Zr }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Yttrium_Y != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Yttrium - Y</td>
+                <td>{{ object.Yttrium_Y }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Tungesten_W != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Tungesten - W</td>
+                <td>{{ object.Tungesten_W }}</td>
+            </tr>
+            {% endif %}
+
+            
+            {% if object.Aluminium_Al != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Aluminium - Al</td>
+                <td>{{ object.Aluminium_Al }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Boron_B != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Boron - B</td>
+                <td>{{ object.Boron_B }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Gallium_Ga != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Gallium - Ga</td>
+                <td>{{ object.Gallium_Ga }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Indium_In != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Indium - In</td>
+                <td>{{ object.Indium_In }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Lead_Pb != '' %}
+            <tr type="hidden">
+                <td style="text-align:left">Lead - Pb</td>
+                <td>{{ object.Lead_Pb }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if object.Silicon_Si != '' %}
+                <tr type="hidden">
+                    <td style="text-align:left">Silicon - Si</td>
+                    <td>{{ object.Silicon_Si }}</td>
+                </tr>
+            {% endif %}
+
+
+            {% if object.Tin_Sn != '' %}
+                <tr type="hidden">
+                    <td style="text-align:left">Tin - Sn</td>
+                    <td>{{ object.Tin_Sn }}</td>
+                </tr>
+            {% endif %}
+
+
+            {% if object.Nitrogen_N != '' %}
+                <tr type="hidden">
+                    <td style="text-align:left">Nitrogen - N</td>
+                    <td>{{ object.Nitrogen_N }}</td>
+                </tr>
+            {% endif %}
+
+
+            {% if object.Phosphorus_P != '' %}
+                <tr type="hidden">
+                    <td style="text-align:left">Phosphorus - P</td>
+                    <td>{{ object.Phosphorus_P }}</td>
+                </tr>
+            {% endif %}
+
+            {% if object.Sulfur_S != '' %}
+                <tr type="hidden">
+                    <td style="text-align:left">Sulfur - S</td>
+                    <td>{{ object.Sulfur_S }}</td>
+                </tr>
+            {% endif %}
+
+
+        </table>
+
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+
+        <table style="width:90%">
+            <tr>
+                <th style="background-color:#00445F">
+                    <font color="white">Härteprüfung</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Werte</font>
+                </th>
+            </tr>
+            <tr>
+                <td style="text-align:left">Vickers - HV [DIN EN ISO 6507-1:2018]</td>
+                <td> {% if object.Hardness_HV != '' %}{{ object.Hardness_HV }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Rockwell - HRC [DIN EN ISO 6508-1]</td>
+                <td>{% if object.Hardness_HRC != '' %}{{ object.Hardness_HRC }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Brinell - HBW [DIN EN ISO 6506-1]</td>
+                <td>{% if object.Hardness_HBW != '' %}{{ object.Hardness_HBW }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Hardness Files</td>
+                <td><a href="{{ object.files_Hardness.url }}" target="_blank">Download Files</a></td>
+
+            </tr>
+            
+        </table>
+
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+
+        <table style="width:90%">
+            <tr>
+                <th style="background-color:#00445F">
+                    <font color="white">Zugversuch Nach [DIN EN ISO 6892-1]</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Werte</font>
+                </th>
+            </tr>
+            <tr>
+                <td style="text-align:left">Tensile Strength Rm [MPa]</td>
+                <td>{% if object.Tensile_Strength_Rm != '' %}{{ object.Tensile_Strength_Rm }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Tensile Strength Rp0.2 [MPa]</td>
+                <td>{% if object.Streckgrenze_Rp != '' %}{{ object.Streckgrenze_Rp }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Tensile Strength ReH [MPa]</td>
+                <td>{% if object.Streckgrenze_ReH != '' %}{{ object.Streckgrenze_ReH }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Tensile Strength ReL [MPa]</td>
+                <td>{% if object.Streckgrenze_ReL != '' %}{{ object.Streckgrenze_ReL }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Tensile Stretch A [%]</td>
+                <td>{% if object.Tensile_Stretch_A != '' %}{{ object.Tensile_Stretch_A }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Gleichmaßdehnung Ag [%]</td>
+                <td>{% if object.Gleichmaßdehnung_Ag != '' %}{{ object.Gleichmaßdehnung_Ag }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Tensile Files</td>
+                <td><a href="{{ object.files_Tensile.url }}" target="_blank">Download Files</a></td>
+
+            </tr>
+            <tr>
+                <td colspan="2">Spannung Dehnungs Diagramm</td>
+              </tr>
+              <tr>
+                  {% if object.files_Modulus != "no_data.html" %}
+                      <th width="1" rowspan="7" colspan="2" ><img src="{{ object.files_Tensile.url }}" width="900" height="600" alt="img"></th>
+                  {% else %}
+                      <th width="1" rowspan="7" colspan="2" ><img src='\media\no_data_csv.jpg' alt="img"></th>
+                  {% endif %}
+              </tr>
+            
+        </table>
+
+
+        <table style="width:90%">
+            <tr>
+                <th style="background-color:#00445F">
+                    <font color="white">Kerbschlagbiegeversuch [DIN EN ISO 148-1]</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Werte</font>
+                </th>
+            </tr>
+            <tr>
+                <td style="text-align:left">Kerbschlagarbeit [J]</td>
+                <td>{% if object.Kerbschlagarbeit != '' %}{{ object.Kerbschlagarbeit }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Temperatur [°C]</td>
+                <td>{% if object.Temperatur != '' %}{{ object.Temperatur }}{% else %} - {% endif %}</td>
+
+            </tr>
+            <tr>
+                <td style="text-align:left">Charpy Files</td>
+                <td><a href="{{ object.files_Charpy.url }}" target="_blank">Download Files</a></td>
+
+            </tr>
+            
+        </table>
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid black;
+            }
+        </style>
+
+        <table style="width:90%">
+            <tr>
+                <th style="background-color:#00445F">
+                    <font color="white">Elastizitätsmodul [ASTM E1876 - ISO 12680-1:2005]</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Werte</font>
+                </th>
+            </tr>
+            <tr>
+                <td style="text-align:left">E-Modul [MPa]</td>
+                <td>{% if object.EModul != '' %}{{ object.EModul }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">E-Modul Files</td>
+                <td><a href="{{ object.files_Modulus.url }}" target="_blank">Download Files</a></td>
+            </td>
+
+            </tr>
+
+            <tr>
+                <td colspan="2">Elastizitätsmodul Bei Hohen Temperatur [Diagramm]</td>
+              </tr>
+              <tr>
+                  {% if object.files_Modulus != "no_data.html" %}
+                      <th width="1" rowspan="7" colspan="2" ><img src="{{ object.files_Modulus.url }}" width="900" height="600" alt="img"></th>
+                  {% else %}
+                      <th width="1" rowspan="7" colspan="2" ><img src='\media\no_data_csv.jpg' alt="img"></th>
+                  {% endif %}
+              </tr>
+        </table>
+
+        <table style="width:90%">
+            <tr>
+                <th style="background-color:#00445F">
+                    <font color="white">Die Dichtebestimmung</font>
+                </th>
+                <th style="background-color:#00445F">
+                    <font color="white">Werte</font>
+                </th>
+            </tr>
+            <tr>
+                <td style="text-align:left">Dichte [g/cm²]</td>
+                <td>{% if object.Density != '' %}{{ object.Density }}{% else %} - {% endif %}</td>
+
+            </tr>
+            <tr>
+                <td style="text-align:left">Density Files</td>
+            
+                <td><a href="{{ object.files_Density.url }}" target="_blank">Download Files</a></td>
+            </tr>
+            
+        </table>
+
+
+        <table style="width:90%">
+
+            <tr>
+              <th colspan="2" style="background-color:#00445F"><font color="white">Metallografie</font></th>
+            </tr>
+
+            <tr>
+              <th width="1"  rowspan="7"><img src="{{ object.Gefüge_Aufnhame.url }}" alt="img"></th>
+              <td><samp>Probe:<br>{% if object.Probe != '' %}{{ object.Probe }}{% else %} - {% endif %}</samp></td>
+            </tr>
+
+            <tr>   
+              <td>Gefüge Beschreibung:<samp><br>{% if object.Gefüge_Beschreibung != '' %}{{ object.Gefüge_Beschreibung }}{% else %} - {% endif %}</samp></td> 
+            </tr>
+
+            <tr>
+                <td><samp>Wärmebehandlung:<br>{% if object.Wärmebehandlung != '' %}{{ object.Wärmebehandlung }}{% else %} - {% endif %}</samp></td>
+            </tr>
+
+            <tr>
+                <td><samp>Ätzung:<br>{% if object.Ätzung != '' %}{{ object.Ätzung }}{% else %} - {% endif %}</samp></td>
+            </tr>
+
+            <tr>
+                <td><samp>Notes:<br{% if object.Notes != '' %}{{ object.Notes }}{% else %} - {% endif %}></samp></td>
+            </tr>
+
+            <tr>
+                <td><samp>Metallo Files:<br><a href="{{ object.files_Metallo.url }}" target="_blank">Download Files</a></samp></td>
+            </tr>
+        </table>
+        
+        
+
+    </div>
+</article>
+{% endblock content %}

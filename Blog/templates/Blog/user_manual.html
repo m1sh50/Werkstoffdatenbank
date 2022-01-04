@@ -1,0 +1,100 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <div class="media-body">
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4"><h2 class="account-heading">The User Manual</h2></legend>
+          </fieldset>
+        </div>
+      </div>
+
+
+
+      
+
+      <table style="width:90%">
+        <tr>
+          <th>
+              <font>Search and Browse</font>
+          </th>
+        </tr>
+        <tr>
+          <td>without registration, searching and bowseing is possible in this data base.</td>
+      </tr>
+        
+        <tr>
+            <th>
+                <font>Registration</font> 
+            </th>
+        </tr>
+        <tr>
+            <td>for adding a new alloys you have to register and loging. <a href="{% url 'register' %}" target="_blank">REGISTER NOW</a></td>
+        </tr>
+        <tr>
+          <th>
+              <font>Profile and Post Update</font>
+          </th>
+        </tr>
+      
+      <tr>
+          <td>updata or delete your own data anytime.  
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" target="_blank">PROFILE</a></td>
+            {% else %}
+                <a href="{% url 'Login' %}" target="_blank">LOGIN</a> or
+                <a href="{% url 'register' %}" target="_blank">REGISTER</a>
+            {% endif %}
+      </tr>
+      <tr>
+          <th>
+              <font>How to Search for an Alloy</font>
+          </th>
+        </tr>
+        <tr>
+          <td>- by typing the same Material number or Material designation or the group at once as it is in the data base. </td>
+      </tr>
+      <tr>
+        <td>- for example just typ <i><ins>1.0035</ins></i> without any space in between or <i><ins>S185</ins></i> the Material designation is only in capital letters. <a href="{% url 'search-post' %}" target="_blank">SEARCH FOR ALLOY</a></td>
+    </tr>
+      <tr>
+        <th>
+            <font>How to Add A New Alloy</font>
+        </th>
+    </tr>
+    <tr>
+        <td>- three values must be entered every time by adding a new alloy:</td>
+    </tr>
+    <tr>
+      <td>* Material number as: <i><ins>1.4303</ins></i></td>
+  </tr>
+  <tr>
+    <td>* Material designation as: <i><ins>X4CrNi18-12</ins></i></td>
+</tr>
+<tr>
+  <td>* group as:	<i><ins>Austenitische Sähle</ins></i> or just look up first in the data base for the same group and copy that name</td>
+</tr>
+    <tr>
+      <td>* source as: <i><ins>Tabellen Buch</ins></i> very important to mention the source of the infomation.</td>
+  </tr>
+    <tr>
+      <td>- leave the field empty or as it is if there is no data specific. <a href="{% url 'post-create' %}" target="_blank">ADD A NEW ALLOY</a></td>
+    </tr>
+    <tr>
+      <th>
+          <font>Support:</font>
+      </th>
+  </tr>
+  <tr>
+    <td>- my E-mail:  <i><ins><font color= #3697ec >Z.Meshou@mpie.de</font></ins></i></td>
+  </tr>
+
+    </table>https://www.makeitfrom.com/
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        </div>
+      </form>
+    </div>
+{% endblock content %}
+
