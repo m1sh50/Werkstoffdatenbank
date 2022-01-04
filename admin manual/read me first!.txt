@@ -1,0 +1,21 @@
+the project was made in python-Django
+
+-first download the requirement packages, for installing the packages run the command: 'pip install -r requirements.txt'
+the file requirements.txt should be in the same path the cmd! python version should be at least 3.0 or above.
+
+-run the project: just run the command: 'python manage.py runserver'
+the project file should be in the same path the cmd! then copy the link http://127.0.0.1:8000/ and open it the your browser.
+
+-for advanced editing open the project file with a program like VScode: https://code.visualstudio.com/
+you gonna need some experience with python also with: Django, SQL3, HTML, CSS, Json, Matplotlib and pandas.
+
+-Github link https://github.com/m1sh50/Werkstoffdatenbank/upload/main
+
+-Admin for editing or deleting go to http://127.0.0.1:8000/admin 
+
+-ngrok go to https://ngrok.com/ sign up and stream the server there for free!
+
+-if you had error somehow, please contact me if i was at mpie or not i would be happy to help anytime.
+my E-mail: misho.1997@icloud.com
+
+© 2022, WERKSTOFFDATENBANK - Zakarya Meshou
